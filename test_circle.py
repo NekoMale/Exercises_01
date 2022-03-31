@@ -26,8 +26,13 @@ def test_get_circumference(circle):
     assert circle.get_circumference() == 2 * 4 * math.pi
 
 def test_get_area(circle):
-    circle = Circle(0, 0, 4)
     assert circle.get_area() == 4 * 4 * math.pi
+
+def test_add(circle):
+    circle2 = Circle(0, 1, 3)
+    circle_added = circle + circle2
+    assert circle_added.radius == 7
+    assert circle_added.center == (2, 3)
 
 def test_le(circle):
     circle2 = Circle(0, 0, 3)
