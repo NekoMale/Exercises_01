@@ -2,6 +2,8 @@ import math
 
 class Circle:
     def __init__(self, x_center, y_center, radius):
+        if radius <= 0:
+            raise ValueError('Radius can\'t be 0 or less')
         self.x_center = x_center
         self.y_center = y_center
         self.__radius = radius
@@ -14,6 +16,10 @@ class Circle:
     def radius(self):
         return self.__radius
 
+    @property
+    def diameter(self):
+        return self.__radius * 2
+
     def translate(self, delta_x, delta_y):
         self.x_center += delta_x
         self.y_center += delta_y
@@ -23,13 +29,17 @@ class Circle:
         self.y_center = new_y
 
     def scale(self, delta_radius):
+        if delta_radius >= self.radius:
+            raise ValueError('Can\'t scale radius to 0 or less, pass a value lesser than current radius')
         self.__radius += delta_radius
 
     def rescale(self, new_radius):
+        if new_radius <= 0:
+            raise ValueError('Radius can\'t be 0 or less')
         self.__radius = new_radius
 
     def get_circumference(self):
-        return 2 * self.radius * math.pi
+        return self.diameter * math.pi
 
     def get_area(self):
         return self.radius ** 2 * math.pi
